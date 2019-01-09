@@ -6,4 +6,7 @@ https://www.youtube.com/watch?v=aIkpVzqLuhA
 
 ### `n`
 
-
+## Packages
+install-package Microsoft.EntityFrameworkCore.SqlServer
+install-package Microsoft.EntityFrameworkCore.Tools
+install-package Microsoft.EntityFrameworkCore.SqlServer.Design
