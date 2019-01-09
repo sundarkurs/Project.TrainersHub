@@ -1,13 +1,14 @@
-﻿using System;
+﻿#region Namespace
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+
+#endregion
 
 namespace TH.CoreApi.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ValuesController : ControllerBase
     {
         // GET api/values
         [HttpGet]
