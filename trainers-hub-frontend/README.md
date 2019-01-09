@@ -1,5 +1,28 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## How to get started
+
+#### Install Node.js
+Download the installer from https://nodejs.org/en/ and install the software.
+
+#### Bootstrap using Create-React-App
+Use Create-React-App to set up a modern web app by running one command. Open command prompt and install create-react-app using npm
+#### `npm install -g create-react-app`
+
+The above command installs/configures Development Server, Webpack, Babel, and few other things will be configured.
+
+#### Create React app
+Go to any folder where you want create the react application and run below command
+#### `create-react-app app-name`
+
+#### Run the application
+Go to the project folder
+#### `cd app-name`
+
+and run below command to start dev serverr
+#### `npm start`
+
+
 ## Available Scripts
 
 In the project directory, you can run:
