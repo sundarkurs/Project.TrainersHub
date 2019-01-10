@@ -24,19 +24,38 @@ appsettings.json
           "DefaultConnection": "Server=.;Database=EFCodeFirst;Trusted_Connection=True;MultipleActiveResultSets=true"
     },
 
-## Create classes for tables
+## Create entities
 
 
-## Create DbContext
+## DbContext
+Create DbContext and initialize in Startup.ConfigureServices()
+
+    public class TrainersContext : DbContext
+    {
+
+        public TrainersContext(DbContextOptions options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
+        public DbSet<Trainer> Trainers { get; set; }
+    }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddDbContext<TrainersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        services.AddMvc();
+    }
 
 ## Create intial setup data and call inside Startup.Configure
 
-## Migration
+## Migration and Update database related commands
 
-### `Add-migration InitialCreate -o Data/Migrations`
-### `Update-Database`
+### `PM> Add-migration InitialCreate -o Data/Migrations`
+### `PM> Update-Database`
+### `PM> Remove-Migration`
 
-## Database update
 
 ## Run api to update initial data
 
