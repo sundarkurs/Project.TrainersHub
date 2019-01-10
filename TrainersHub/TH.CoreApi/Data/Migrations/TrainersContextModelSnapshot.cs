@@ -106,17 +106,17 @@ namespace TH.CoreApi.Data.Migrations
             modelBuilder.Entity("TH.CoreApi.Models.TrainerWorkout", b =>
                 {
                     b.HasOne("TH.CoreApi.Models.ExpertLevel", "ExpertLevel")
-                        .WithMany()
+                        .WithMany("TrainerWorkouts")
                         .HasForeignKey("ExpertLevelId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TH.CoreApi.Models.Trainer", "Trainer")
-                        .WithMany()
+                        .WithMany("TrainerWorkouts")
                         .HasForeignKey("TrainerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TH.CoreApi.Models.Workout", "Workout")
-                        .WithMany()
+                        .WithMany("TrainerWorkouts")
                         .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

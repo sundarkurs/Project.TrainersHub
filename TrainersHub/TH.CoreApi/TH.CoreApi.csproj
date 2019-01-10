@@ -7,9 +7,12 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20190110114817_InitialCreate.cs" />
     <Compile Remove="Data\Migrations\20190110114817_InitialCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190110115452_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20190110115452_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Migrations\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -18,6 +21,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>

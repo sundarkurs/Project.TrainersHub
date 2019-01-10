@@ -10,7 +10,7 @@ using TH.CoreApi.Data;
 namespace TH.CoreApi.Data.Migrations
 {
     [DbContext(typeof(TrainersContext))]
-    [Migration("20190110115452_InitialCreate")]
+    [Migration("20190110123104_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,17 +108,17 @@ namespace TH.CoreApi.Data.Migrations
             modelBuilder.Entity("TH.CoreApi.Models.TrainerWorkout", b =>
                 {
                     b.HasOne("TH.CoreApi.Models.ExpertLevel", "ExpertLevel")
-                        .WithMany()
+                        .WithMany("TrainerWorkouts")
                         .HasForeignKey("ExpertLevelId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TH.CoreApi.Models.Trainer", "Trainer")
-                        .WithMany()
+                        .WithMany("TrainerWorkouts")
                         .HasForeignKey("TrainerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TH.CoreApi.Models.Workout", "Workout")
-                        .WithMany()
+                        .WithMany("TrainerWorkouts")
                         .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

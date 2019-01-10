@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TH.CoreApi.Models
 {
     public class Trainer
     {
+        public Trainer()
+        {
+            TrainerWorkouts = new HashSet<TrainerWorkout>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -30,5 +36,7 @@ namespace TH.CoreApi.Models
         [MaxLength(200)]
         public string ProfilePic { get; set; }
 
+
+        public virtual ICollection<TrainerWorkout> TrainerWorkouts { get; set; }
     }
 }
