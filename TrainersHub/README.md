@@ -3,6 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Youtube tutorial on WebApi Core
 
 https://www.youtube.com/watch?v=aIkpVzqLuhA
+https://weblogs.asp.net/senthil/code-first-ef-core
 
 ### `n`
 
@@ -30,7 +31,7 @@ appsettings.json
 ## DbContext
 Create DbContext and initialize in Startup.ConfigureServices()
 
-    public class TrainersContext : DbContext
+    public class TrainersDbContext : DbContext
     {
 
         public TrainersContext(DbContextOptions options) : base(options) { }
@@ -44,7 +45,7 @@ Create DbContext and initialize in Startup.ConfigureServices()
     }
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbContext<TrainersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<TrainersDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         services.AddMvc();
     }
 
@@ -60,5 +61,13 @@ Create DbContext and initialize in Startup.ConfigureServices()
 Command to create entities from database
 ### `Scaffold-DbContext "Server=.;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models`
 
-## Run api to update initial data
+## Hosting it in IIS
+
+1. Publish Core Api into some folder
+2. Create a website in IIS and point to the above folder
+3. Go to application pool and change .NET CLR Version to No Managed Code
+
+If it's not working then install WebHost
+https://stackify.com/how-to-deploy-asp-net-core-to-iis/
+
 
