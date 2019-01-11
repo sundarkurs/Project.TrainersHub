@@ -57,5 +57,8 @@ Create DbContext and initialize in Startup.ConfigureServices()
 ### `PM> Remove-Migration`
 
 
+Command to create entities from database
+### `Scaffold-DbContext "Server=.;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models`
+
 ## Run api to update initial data
 
