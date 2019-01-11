@@ -7,10 +7,10 @@ using TH.CoreApi.Models;
 
 namespace TH.CoreApi.Data
 {
-    public class TrainersContext : DbContext
+    public class TrainersDbContext : DbContext
     {
 
-        public TrainersContext(DbContextOptions options) : base(options)
+        public TrainersDbContext(DbContextOptions options) : base(options)
         {
         }
 

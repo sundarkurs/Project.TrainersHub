@@ -15,7 +15,7 @@ namespace TH.CoreApi.Data
             var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
             using (var serviceScope = scopeFactory.CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetService<TrainersContext>();
+                var context = serviceScope.ServiceProvider.GetService<TrainersDbContext>();
                 context.Database.EnsureCreated();
 
                 if (context.ExpertLevels == null || !context.ExpertLevels.Any())
