@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,12 @@ namespace TH.CoreApi
             app.UseMvc();
 
             InitialDataSetup.Initialize(app);
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("MVC didn't find anything.");
+            });
+
         }
     }
 }
