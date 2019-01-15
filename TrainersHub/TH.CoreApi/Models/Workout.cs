@@ -10,7 +10,7 @@ namespace TH.CoreApi.Models
     {
         public Workout()
         {
-            TrainerWorkouts = new HashSet<TrainerWorkout>();
+            //TrainerWorkouts = new HashSet<TrainerWorkout>();
         }
 
         [Key]
@@ -19,6 +19,6 @@ namespace TH.CoreApi.Models
         [MaxLength(50)]
         public string Type { get; set; }
 
-        public virtual ICollection<TrainerWorkout> TrainerWorkouts { get; set; }
+        //public virtual ICollection<TrainerWorkout> TrainerWorkouts { get; set; }
     }
 }

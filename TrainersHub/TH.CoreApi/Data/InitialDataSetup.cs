@@ -33,6 +33,11 @@ namespace TH.CoreApi.Data
                     context.Trainers.AddRange(GetTrainers().ToArray());
                 }
 
+                if (context.TrainerWorkouts == null || !context.TrainerWorkouts.Any())
+                {
+                    context.TrainerWorkouts.AddRange();
+                }
+
                 context.SaveChanges();
             }
         }
@@ -43,7 +48,11 @@ namespace TH.CoreApi.Data
                 new Trainer()
                 {
                     FirstName = "Sundar",
-                    LastName="Urs"
+                    LastName="Urs",
+                    Address="Bangalore",
+                    DateOfBirth = new DateTime(1983, 06, 10),
+                    Email = "sundarkurs@gmail.com",
+                    Phone = "9999988888"
                 }
             };
         }

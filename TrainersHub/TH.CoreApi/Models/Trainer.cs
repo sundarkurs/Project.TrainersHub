@@ -8,7 +8,7 @@ namespace TH.CoreApi.Models
     {
         public Trainer()
         {
-            TrainerWorkouts = new HashSet<TrainerWorkout>();
+            //TrainerWorkouts = new HashSet<TrainerWorkout>();
         }
 
         [Key]
@@ -37,6 +37,6 @@ namespace TH.CoreApi.Models
         public string ProfilePic { get; set; }
 
 
-        public virtual ICollection<TrainerWorkout> TrainerWorkouts { get; set; }
+        //public virtual ICollection<TrainerWorkout> TrainerWorkouts { get; set; }
     }
 }
