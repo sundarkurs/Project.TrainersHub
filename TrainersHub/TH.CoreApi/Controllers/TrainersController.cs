@@ -56,23 +56,55 @@ namespace TH.CoreApi.Controllers
         }
 
         [HttpGet("{id:int}/workouts")]
-        public async Task<IActionResult> GetTrainerWorkouts([FromRoute]int id)
+        public IActionResult GetTrainerWorkouts([FromRoute]int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var trainerWorkout = await _context.TrainerWorkouts.Where(tw => tw.TrainerId == id)
-                .Include(t => t.Trainer)
-                .Include(w => w.Workout).FirstOrDefaultAsync(t => t.TrainerId == id);
+            var trainerWorkouts = from tw in _context.TrainerWorkouts
+                     join t in _context.Trainers on tw.TrainerId equals t.Id
+                     join w in _context.Workouts on tw.WorkoutId equals w.Id
+                     where tw.TrainerId == id
+                     select new
+                     {
+                         w.Id,
+                         w.Type
+                     };
 
-            if (trainerWorkout == null)
+            if (trainerWorkouts == null)
             {
                 return NotFound();
             }
 
-            return Ok(trainerWorkout.Workout);
+            return Ok(trainerWorkouts);
+        }
+
+        [HttpGet("{id:int}/workouts/{workoutId:int}")]
+        public IActionResult GetTrainerWorkoutById([FromRoute]int id, int workoutId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var trainerWorkouts = from tw in _context.TrainerWorkouts
+                                  join t in _context.Trainers on tw.TrainerId equals t.Id
+                                  join w in _context.Workouts on tw.WorkoutId equals w.Id
+                                  where tw.TrainerId == id && tw.WorkoutId == workoutId
+                                  select new
+                                  {
+                                      w.Id,
+                                      w.Type
+                                  };
+
+            if (trainerWorkouts == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(trainerWorkouts);
         }
 
         [HttpGet("{id:int}/workout/{workoutId:int}/expertise")]
@@ -138,7 +170,7 @@ namespace TH.CoreApi.Controllers
 
             var trainerFromDb = await _context.Trainers.FindAsync(id);
 
-            if(trainerFromDb == null)
+            if (trainerFromDb == null)
             {
                 return NotFound();
             }
