@@ -44,7 +44,6 @@ namespace TH.CoreApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            //var trainer = await _context.Trainers.Include(tw => tw.TrainerWorkouts).FirstOrDefaultAsync(t => t.Id == id);
             var trainer = await _context.Trainers.FirstOrDefaultAsync(t => t.Id == id);
 
             if (trainer == null)
@@ -64,14 +63,14 @@ namespace TH.CoreApi.Controllers
             }
 
             var trainerWorkouts = from tw in _context.TrainerWorkouts
-                     join t in _context.Trainers on tw.TrainerId equals t.Id
-                     join w in _context.Workouts on tw.WorkoutId equals w.Id
-                     where tw.TrainerId == id
-                     select new
-                     {
-                         w.Id,
-                         w.Type
-                     };
+                                  join t in _context.Trainers on tw.TrainerId equals t.Id
+                                  join w in _context.Workouts on tw.WorkoutId equals w.Id
+                                  where tw.TrainerId == id
+                                  select new
+                                  {
+                                      w.Id,
+                                      w.Type
+                                  };
 
             if (trainerWorkouts == null)
             {
@@ -107,7 +106,7 @@ namespace TH.CoreApi.Controllers
             return Ok(trainerWorkouts);
         }
 
-        [HttpGet("{id:int}/workout/{workoutId:int}/expertise")]
+        [HttpGet("{id:int}/workouts/{workoutId:int}/expertlevel")]
         public async Task<IActionResult> GetTrainerWorkoutExpertise([FromRoute]int id, int workoutId)
         {
             if (!ModelState.IsValid)
@@ -118,7 +117,7 @@ namespace TH.CoreApi.Controllers
             var trainerWorkout = await _context.TrainerWorkouts
                 .Include(t => t.Trainer)
                 .Include(w => w.Workout)
-                .Include(e => e.ExpertLevel).FirstOrDefaultAsync(tw => tw.WorkoutId == workoutId);
+                .Include(e => e.ExpertLevel).FirstOrDefaultAsync(tw => tw.TrainerId == id && tw.WorkoutId == workoutId);
 
             if (trainerWorkout == null)
             {
@@ -141,9 +140,18 @@ namespace TH.CoreApi.Controllers
                 return BadRequest();
             }
 
-            var trainerFromDb = await _context.Trainers.FindAsync(id);
+            _context.Entry(trainer).State = EntityState.Modified;
 
-            return Ok(trainer);
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return NotFound();
+            }
+
+            return Ok(String.Format("User {0} updated successfully.", trainer.FirstName));
         }
 
         [HttpPost]
@@ -157,11 +165,11 @@ namespace TH.CoreApi.Controllers
             _context.Trainers.Add(trainer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPatient", new { id = trainer.Id });
+            return Ok(String.Format("User {0} created successfully.", trainer.FirstName));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTrainer([FromRoute] int id, [FromBody] Trainer trainer)
+        public async Task<IActionResult> DeleteTrainer([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -169,13 +177,14 @@ namespace TH.CoreApi.Controllers
             }
 
             var trainerFromDb = await _context.Trainers.FindAsync(id);
-
             if (trainerFromDb == null)
             {
                 return NotFound();
             }
 
-            return Ok(trainer);
+            _context.Trainers.Remove(trainerFromDb);
+            _context.SaveChanges();
+            return Ok(String.Format("User {0} deleted", trainerFromDb.FirstName));
         }
 
     }
