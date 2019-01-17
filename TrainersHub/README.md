@@ -3,7 +3,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Youtube tutorial on WebApi Core
 
 https://www.youtube.com/watch?v=aIkpVzqLuhA
+
 https://weblogs.asp.net/senthil/code-first-ef-core
+
+https://hackernoon.com/restful-api-designing-guidelines-the-best-practices-60e1d954e7c9
 
 ### `n`
 
