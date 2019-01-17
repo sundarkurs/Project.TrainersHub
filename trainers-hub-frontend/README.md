@@ -96,5 +96,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 1. Create react app using create-react-app
 
-2. Install react-router (latest 4) and other modules
+2. Modules installed
 >npm install react-router-dom
+>npm install bootstrap
