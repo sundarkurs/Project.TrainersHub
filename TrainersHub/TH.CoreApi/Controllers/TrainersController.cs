@@ -21,19 +21,12 @@ namespace TH.CoreApi.Controllers
             _context = context;
         }
 
+        // GET api/trainers
         [HttpGet]
         public IEnumerable<Trainer> GetTrainers()
         {
             return _context.Trainers;
         }
-
-        //// GET api/trainers
-        //[HttpGet]
-        //public async Task<IActionResult> GetAsync()
-        //{
-        //    var trainers = await _context.Trainers.AsNoTracking().ToListAsync();
-        //    return Ok(trainers);
-        //}
 
         // GET api/trainers/5
         [HttpGet("{id}")]
@@ -54,6 +47,7 @@ namespace TH.CoreApi.Controllers
             return Ok(trainer);
         }
 
+        // GET api/trainers/1/workouts
         [HttpGet("{id:int}/workouts")]
         public IActionResult GetTrainerWorkouts([FromRoute]int id)
         {
@@ -80,8 +74,9 @@ namespace TH.CoreApi.Controllers
             return Ok(trainerWorkouts);
         }
 
+        // GET api/trainers/1/workouts/1
         [HttpGet("{id:int}/workouts/{workoutId:int}")]
-        public IActionResult GetTrainerWorkoutById([FromRoute]int id, int workoutId)
+        public IActionResult GetTrainerWorkout([FromRoute]int id, int workoutId)
         {
             if (!ModelState.IsValid)
             {
@@ -106,6 +101,7 @@ namespace TH.CoreApi.Controllers
             return Ok(trainerWorkouts);
         }
 
+        // GET api/trainers/1/workouts/1/expertlevel
         [HttpGet("{id:int}/workouts/{workoutId:int}/expertlevel")]
         public async Task<IActionResult> GetTrainerWorkoutExpertise([FromRoute]int id, int workoutId)
         {
@@ -127,8 +123,24 @@ namespace TH.CoreApi.Controllers
             return Ok(trainerWorkout.ExpertLevel);
         }
 
+        // POST api/trainers
+        [HttpPost]
+        public async Task<IActionResult> PostTrainer([FromBody] Trainer trainer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Trainers.Add(trainer);
+            await _context.SaveChangesAsync();
+
+            return Ok(String.Format("User {0} created successfully.", trainer.FirstName));
+        }
+
+        // PUT api/trainers/1
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrainer([FromRoute] int id, [FromBody] Trainer trainer)
+        public IActionResult PutTrainer([FromRoute] int id, [FromBody] Trainer trainer)
         {
             if (!ModelState.IsValid)
             {
@@ -154,20 +166,7 @@ namespace TH.CoreApi.Controllers
             return Ok(String.Format("User {0} updated successfully.", trainer.FirstName));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PostTrainer([FromBody] Trainer trainer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Trainers.Add(trainer);
-            await _context.SaveChangesAsync();
-
-            return Ok(String.Format("User {0} created successfully.", trainer.FirstName));
-        }
-
+        // DELETE api/trainers/1
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTrainer([FromRoute] int id)
         {
