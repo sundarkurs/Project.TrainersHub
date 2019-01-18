@@ -3,23 +3,26 @@ import PropTypes from "prop-types";
 
 class WorkoutItem extends Component {
     
-  deleteProject(id) {
-    console.log("Delete");
+  deleteWorkout(id) {
     this.props.onDelete(id);
   }
 
   render() {
+
+    var cardCustomization = {
+        
+    };
+
     return (
-      <li>
-        <strong>{this.props.project.title}</strong> -{" "}
-        {this.props.project.category}
-        <a
-          href="#"
-          onClick={this.deleteProject.bind(this, this.props.project.id)}
-        >
-          X
-        </a>
-      </li>
+        <div className="card" style={cardCustomization}>
+            <img className="card-img-top" src="images/default_workout_avatar.png" alt="Card image"/>
+            <div className="card-body">
+                <h4 className="card-title">{this.props.workout.type}</h4>
+                <p className="card-text">Description.</p>
+                <a href="#" onClick={this.deleteWorkout.bind(this, this.props.workout.id)} 
+                className="btn btn-danger">Delete</a>
+            </div>
+        </div>
     );
   }
 }

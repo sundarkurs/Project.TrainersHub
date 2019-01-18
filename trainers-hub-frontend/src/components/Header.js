@@ -3,7 +3,7 @@ import Navigation from "../components/Navigation"
 
 const Header = () => {
     return(
-        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
             <a className="navbar-brand" href="#">Trainers Hub</a>
             <Navigation />
         </nav>

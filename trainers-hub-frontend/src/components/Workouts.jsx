@@ -7,52 +7,47 @@ class Workouts extends React.Component {
         super();
     
         this.state = {
-          projects: []
+            workouts: []
         };
     }
 
-    handleDeleteProject(id) {
-        let projects = this.state.projects;
-        let index = projects.findIndex(x => x.id === id);
-        projects.splice(index, 1);
+    handleDeleteWorkout(id) {
+        let workouts = this.state.workouts;
+        let index = workouts.findIndex(x => x.id === id);
+        workouts.splice(index, 1);
 
         this.setState({
-        projects: projects
+            workouts: workouts
         });
     }
 
-    getProjects() {
-        this.setState({
-          projects: [
-            {
-              id: 1,
-              title: "Contact Portal",
-              category: "B2C"
-            },
-            {
-              id: 2,
-              title: "Agent Portal",
-              category: "B2B"
+    getWorkouts() {
+
+        fetch('http://api.trainershub.com/api/workouts')
+        .then(response => response.json())
+        .then(data => {
+                this.setState({ workouts: data },
+                    function() {
+                        console.log(this.state);
+                      }
+                    )
             }
-          ]
-        });
+        );
     }
 
     componentWillMount() {
-        this.getProjects();
+        this.getWorkouts();
     }
 
     render(){
-
-
-        let projectItems;
-        if (this.state.projects) {
-          projectItems = this.state.projects.map(project => {
+        let workoutItems;
+        if (this.state.workouts) {
+            workoutItems = this.state.workouts.map(workout => {
             return (
               <WorkoutItem
-                onDelete={this.handleDeleteProject.bind(this)}
-                key={project.id}
-                project={project}
+                onDelete={this.handleDeleteWorkout.bind(this)}
+                key={workout.id}
+                workout={workout}
               />
             );
           });
@@ -60,8 +55,17 @@ class Workouts extends React.Component {
 
         return (
             <div>
-              <h3>Projects </h3>
-              <div className="Projects">{projectItems}</div>
+                <div className="page-header">
+                    <h2>Workouts</h2>
+                </div>
+
+                <div className="">
+                    <button type="button" class="btn btn-primary">Add new workout</button>
+                </div>
+
+                <div className="card-columns">
+                    {workoutItems}
+                </div>
             </div>
           );
     }
