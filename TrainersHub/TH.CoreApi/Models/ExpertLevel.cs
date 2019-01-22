@@ -19,6 +19,12 @@ namespace TH.CoreApi.Models
         [MaxLength(50)]
         public string Level { get; set; }
 
+        [MaxLength(250)]
+        public string Avatar { get; set; }
+
+        [MaxLength(500)]
+        public string Description { get; set; }
+
         //public virtual ICollection<TrainerWorkout> TrainerWorkouts { get; set; }
     }
 }

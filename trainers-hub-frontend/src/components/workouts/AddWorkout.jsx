@@ -86,3 +86,4 @@ export default AddWorkout;
 
 // TODO
 // https://www.codementor.io/blizzerand/building-forms-using-react-everything-you-need-to-know-iz3eyoq4y
+// https://medium.com/@everdimension/how-to-handle-forms-with-just-react-ac066c48bd4f

@@ -62,11 +62,15 @@ namespace TH.CoreApi.Data
             return new List<Workout>() {
                 new Workout()
                 {
-                    Type = "Crossfire"
+                    Type = "Crossfire",
+                    Description = "Strengthening and power exercises.",
+                    Avatar = ""
                 },
                 new Workout()
                 {
-                    Type = "SROD"
+                    Type = "SROD",
+                    Description = "Core and functional.",
+                    Avatar = ""
                 }
             };
         }
@@ -76,11 +80,15 @@ namespace TH.CoreApi.Data
             return new List<ExpertLevel>() {
                 new ExpertLevel()
                 {
-                    Level = "Beginner"
+                    Level = "Beginner",
+                    Description = "Only for beginners.",
+                    Avatar = ""
                 },
                 new ExpertLevel()
                 {
-                    Level = "Intermediate"
+                    Level = "Intermediate",
+                    Description = "Intermediate level.",
+                    Avatar = ""
                 }
             };
         }

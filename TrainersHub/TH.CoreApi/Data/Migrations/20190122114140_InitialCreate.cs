@@ -14,7 +14,9 @@ namespace TH.CoreApi.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Level = table.Column<string>(maxLength: 50, nullable: true)
+                    Level = table.Column<string>(maxLength: 50, nullable: true),
+                    Avatar = table.Column<string>(maxLength: 250, nullable: true),
+                    Description = table.Column<string>(maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,7 +49,9 @@ namespace TH.CoreApi.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Type = table.Column<string>(maxLength: 50, nullable: true)
+                    Type = table.Column<string>(maxLength: 50, nullable: true),
+                    Avatar = table.Column<string>(maxLength: 250, nullable: true),
+                    Description = table.Column<string>(maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {

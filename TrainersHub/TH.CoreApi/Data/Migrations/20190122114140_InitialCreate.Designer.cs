@@ -10,7 +10,7 @@ using TH.CoreApi.Data;
 namespace TH.CoreApi.Data.Migrations
 {
     [DbContext(typeof(TrainersDbContext))]
-    [Migration("20190111095727_InitialCreate")]
+    [Migration("20190122114140_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,12 @@ namespace TH.CoreApi.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Avatar")
+                        .HasMaxLength(250);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500);
 
                     b.Property<string>("Level")
                         .HasMaxLength(50);
@@ -97,6 +103,12 @@ namespace TH.CoreApi.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Avatar")
+                        .HasMaxLength(250);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500);
+
                     b.Property<string>("Type")
                         .HasMaxLength(50);
 
@@ -108,17 +120,17 @@ namespace TH.CoreApi.Data.Migrations
             modelBuilder.Entity("TH.CoreApi.Models.TrainerWorkout", b =>
                 {
                     b.HasOne("TH.CoreApi.Models.ExpertLevel", "ExpertLevel")
-                        .WithMany("TrainerWorkouts")
+                        .WithMany()
                         .HasForeignKey("ExpertLevelId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TH.CoreApi.Models.Trainer", "Trainer")
-                        .WithMany("TrainerWorkouts")
+                        .WithMany()
                         .HasForeignKey("TrainerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TH.CoreApi.Models.Workout", "Workout")
-                        .WithMany("TrainerWorkouts")
+                        .WithMany()
                         .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
