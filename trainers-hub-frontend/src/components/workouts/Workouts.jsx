@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import WorkoutItem from "../components/WorkoutItem"
+import WorkoutItem from "./WorkoutItem"
+import AddWorkout from "./AddWorkout"
+
+import { Route, Switch } from 'react-router-dom';
 
 class Workouts extends React.Component {
 
@@ -55,12 +58,14 @@ class Workouts extends React.Component {
 
         return (
             <div>
+                {/* <Route path='/workouts/add' component={ AddWorkout } /> */}
                 <div className="page-header">
                     <h2>Workouts</h2>
                 </div>
 
                 <div className="">
-                    <button type="button" class="btn btn-primary">Add new workout</button>
+                    {/* <a href="/workouts/add">Add workout</a> */}
+                    <a href="/addworkout">Add workout</a>
                 </div>
 
                 <div className="card-columns">

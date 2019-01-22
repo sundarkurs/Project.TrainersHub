@@ -5,7 +5,8 @@ import Home from "../components/Home"
 import Contact from "../components/Contact"
 import About from "../components/About"
 import Error from "../components/Error"
-import Workouts from "../components/Workouts"
+import Workouts from "../components/workouts/Workouts"
+import AddWorkout from "../components/workouts/AddWorkout"
 
 const RouteDefinition = () => {
     return(
@@ -14,6 +15,7 @@ const RouteDefinition = () => {
             <Route path="/contact" component={Contact} />
             <Route path="/about" component={About} />
             <Route path="/workouts" component={Workouts} />
+            <Route path="/addworkout" component={AddWorkout} />
             <Route component={Error} />
         </Switch>
     );
