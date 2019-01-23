@@ -15,7 +15,7 @@ class TrainerItem extends Component {
 
     return (
         <div className="card" style={cardCustomization}>
-            <img className="card-img-top" src="images/default_workout_avatar.png" alt="Card image"/>
+            <img className="card-img-top" src="images/default-trainer-avatar.jpg" alt="Card image"/>
             <div className="card-body">
                 <h4 className="card-title">{this.props.trainer.firstName}</h4>
                 <p className="card-text">{this.props.trainer.lastname}</p>
