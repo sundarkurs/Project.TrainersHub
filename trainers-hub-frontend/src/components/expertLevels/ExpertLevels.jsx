@@ -1,25 +1,25 @@
 import React, { Component } from "react";
-import WorkoutItem from "./WorkoutItem"
-import AddWorkout from "./AddWorkout"
-
 import { Route, Switch } from 'react-router-dom';
 
-class Workouts extends React.Component {
+import ExpertLevelItem from "./ExpertLevelItem"
+import AddExpertLevel from "./AddExpertLevel"
+
+class ExpertLevels extends React.Component {
 
     constructor() {
         super();
     
         this.state = {
-            workouts: []
+            expertLevels: []
         };
     }
 
-    handleDeleteWorkout(id) {
+    handleDeleteExpertLevel(id) {
         // TODO : Delete confirmation
-        let workouts = this.state.workouts;
-        let index = workouts.findIndex(x => x.id === id);
+        let expertLevels = this.state.expertLevels;
+        let index = expertLevels.findIndex(x => x.id === id);
 
-        fetch('http://api.trainershub.com/api/workouts/' + id, {
+        fetch('http://api.trainershub.com/api/expertlevels/' + id, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -28,21 +28,21 @@ class Workouts extends React.Component {
         })
         .then(data => {
             if(data.status == 200){
-                workouts.splice(index, 1);
+                expertLevels.splice(index, 1);
                 this.setState({
-                    workouts: workouts
+                    expertLevels: expertLevels
                 });
             }
             // TODO : Exception handle
         });
     }
 
-    getWorkouts() {
+    getExpertLevels() {
 
-        fetch('http://api.trainershub.com/api/workouts')
+        fetch('http://api.trainershub.com/api/expertlevels')
         .then(response => response.json())
         .then(data => {
-                this.setState({ workouts: data },
+                this.setState({ expertLevels: data },
                     function() {
                         console.log(this.state);
                       }
@@ -52,18 +52,18 @@ class Workouts extends React.Component {
     }
 
     componentWillMount() {
-        this.getWorkouts();
+        this.getExpertLevels();
     }
 
     render(){
-        let workoutItems;
-        if (this.state.workouts) {
-            workoutItems = this.state.workouts.map(workout => {
+        let expertLevelItems;
+        if (this.state.expertLevels) {
+            expertLevelItems = this.state.expertLevels.map(expertLevel => {
             return (
-              <WorkoutItem
-                onDelete={this.handleDeleteWorkout.bind(this)}
-                key={workout.id}
-                workout={workout}
+              <ExpertLevelItem
+                onDelete={this.handleDeleteExpertLevel.bind(this)}
+                key={expertLevel.id}
+                expertLevel={expertLevel}
               />
             );
           });
@@ -71,22 +71,20 @@ class Workouts extends React.Component {
 
         return (
             <div>
-                {/* <Route path='/workouts/add' component={ AddWorkout } /> */}
                 <div className="page-header">
-                    <h2>Workouts</h2>
+                    <h2>Expert Levels</h2>
                 </div>
 
                 <div className="">
-                    {/* <a href="/workouts/add">Add workout</a> */}
-                    <a href="/addworkout">Add workout</a>
+                    <a href="/addexpertlevel">Add Expert Level</a>
                 </div>
 
                 <div className="card-columns">
-                    {workoutItems}
+                    {expertLevelItems}
                 </div>
             </div>
           );
     }
 };
 
-export default Workouts;
+export default ExpertLevels;
