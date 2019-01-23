@@ -5,6 +5,8 @@ import Home from "../components/Home"
 import Contact from "../components/Contact"
 import About from "../components/About"
 import Error from "../components/Error"
+import Trainers from "../components/trainers/Trainers"
+import AddTrainer from "../components/trainers/AddTrainer"
 import Workouts from "../components/workouts/Workouts"
 import AddWorkout from "../components/workouts/AddWorkout"
 import ExpertLevels from "../components/expertLevels/ExpertLevels"
@@ -16,6 +18,8 @@ const RouteDefinition = () => {
             <Route path="/" component={Home} exact />
             <Route path="/contact" component={Contact} />
             <Route path="/about" component={About} />
+            <Route path="/trainers" component={Trainers} />
+            <Route path="/addtrainer" component={AddTrainer} />
             <Route path="/workouts" component={Workouts} />
             <Route path="/addworkout" component={AddWorkout} />
             <Route path="/expertlevels" component={ExpertLevels} />
