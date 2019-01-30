@@ -1,16 +1,16 @@
 import React from "react";
 import { Route, Switch } from 'react-router-dom';
 
-import Home from "../components/Home"
-import Contact from "../components/Contact"
-import About from "../components/About"
-import Error from "../components/Error"
-import Trainers from "../components/trainers/Trainers"
-import AddTrainer from "../components/trainers/AddTrainer"
-import Workouts from "../components/workouts/Workouts"
-import AddWorkout from "../components/workouts/AddWorkout"
-import ExpertLevels from "../components/expertLevels/ExpertLevels"
-import AddExpertLevel from "../components/expertLevels/AddExpertLevel"
+import Home from "../Home"
+import Contact from "../Contact"
+import About from "../About"
+import Error from "../Error"
+import Trainers from "../trainers/Trainers"
+import AddTrainer from "../trainers/AddTrainer"
+import Workouts from "../workouts/Workouts"
+import AddWorkout from "../workouts/AddWorkout"
+import ExpertLevels from "../expertLevels/ExpertLevels"
+import AddExpertLevel from "../expertLevels/AddExpertLevel"
 
 const RouteDefinition = () => {
     return(

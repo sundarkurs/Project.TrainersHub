@@ -7,7 +7,7 @@ class AddTrainer extends React.Component {
         super();
 
         this.state = (
-            { trainer: { firstName: '', lastName : ''}}
+            { trainer: { firstName: '', lastName : '', email : '', phone : '', dateOfBirth : '', address : '', dateOfJoin : '', profilePic: ''}}
         );
            
         this.handleChange = this.handleChange.bind(this);
