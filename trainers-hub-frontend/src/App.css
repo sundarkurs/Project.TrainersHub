@@ -4,3 +4,10 @@
   padding-bottom: 50px;
 }
 
+.header-extended {
+  padding-top: 50px;
+}
+
+.card-extension {
+  background-color: #90b2b7 !important;
+}

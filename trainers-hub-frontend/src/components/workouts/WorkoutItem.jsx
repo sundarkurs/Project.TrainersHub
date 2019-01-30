@@ -10,7 +10,7 @@ class WorkoutItem extends Component {
   render() {
 
     var cardCustomization = {
-        
+      width: '18rem'
     };
 
     return (

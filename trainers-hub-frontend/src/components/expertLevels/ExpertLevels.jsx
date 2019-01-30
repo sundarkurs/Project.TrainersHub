@@ -76,7 +76,7 @@ class ExpertLevels extends React.Component {
                 </div>
 
                 <div className="">
-                    <a href="/addexpertlevel">Add Expert Level</a>
+                    <a href="/addexpertlevel" className="btn btn-primary">Add expert level</a>
                 </div>
 
                 <div className="card-columns">

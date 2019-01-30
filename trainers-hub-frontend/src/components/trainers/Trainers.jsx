@@ -75,7 +75,7 @@ class Trainers extends React.Component {
                 </div>
 
                 <div className="">
-                    <a href="/addtrainer">Add trainer</a>
+                    <a href="/addtrainer" className="btn btn-primary">Add trainer</a>
                 </div>
 
                 <div className="card-columns">

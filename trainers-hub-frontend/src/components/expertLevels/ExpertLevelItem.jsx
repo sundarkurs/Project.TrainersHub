@@ -10,17 +10,15 @@ class ExpertLevelItem extends Component {
   render() {
 
     var cardCustomization = {
-        
     };
 
     return (
-        <div className="card" style={cardCustomization}>
-            <img className="card-img-top" src="images/default-expert-avatar.png" alt="Card image"/>
+        <div className="card text-white bg-info mb-3 card-extension" style={cardCustomization}>
+          <h5 className="card-header">{this.props.expertLevel.level}</h5>
             <div className="card-body">
-                <h4 className="card-title">{this.props.expertLevel.level}</h4>
-                <p className="card-text">{this.props.expertLevel.description}</p>
-                <a href="#" onClick={this.deleteExpertLevel.bind(this, this.props.expertLevel.id)} 
-                className="btn btn-danger">Delete</a>
+              <p className="card-text">{this.props.expertLevel.description}</p>
+               <a href="#" onClick={this.deleteExpertLevel.bind(this, this.props.expertLevel.id)} 
+               className="btn btn-danger">Delete</a>
             </div>
         </div>
     );

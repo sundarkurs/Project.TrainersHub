@@ -77,8 +77,7 @@ class Workouts extends React.Component {
                 </div>
 
                 <div className="">
-                    {/* <a href="/workouts/add">Add workout</a> */}
-                    <a href="/addworkout">Add workout</a>
+                    <a href="/addworkout" className="btn btn-primary">Add workout</a>
                 </div>
 
                 <div className="card-columns">
