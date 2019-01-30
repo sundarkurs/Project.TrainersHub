@@ -5,42 +5,61 @@ class AddExpertLevel extends React.Component {
 
     constructor() {
         super();
-
-        this.state = (
-            { expertLevel: { level: '', description : ''}}
-        );
-           
+        this.state = {expertLevel: {}, errors: {}, fields: {}}
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        var work = this.state.expertLevel;
-
-        if(event.target.name == "level"){
-            work.level = event.target.value
-        }
-        if(event.target.name == "description"){
-            work.description = event.target.value
-        }
-        this.setState({expertLevel: work});
+        let fields = this.state.fields;
+        fields[event.target.name] = event.target.value;
+        this.setState({
+            fields
+        });
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('http://api.trainershub.com/api/expertlevels', {
+
+        if (this.validateForm()) {
+            fetch('http://api.trainershub.com/api/expertlevels', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.state.expertLevel)
-        })
-        .then(data => {
-            if(data.status == 200){
-                this.setState({ redirect: true })
-            }
+            body: JSON.stringify(this.state.fields)
+            })
+            .then(data => {
+                if(data.status == 200){
+                    this.setState({ redirect: true })
+                }
+            });
+        }
+    }
+
+    validateForm(){
+        debugger;
+        let fields = this.state.fields;
+        let errors = {};
+        let isFormValid = true;
+
+        var level = this.state.expertLevel;
+
+        if (!fields["level"]) {
+            isFormValid = false;
+            errors["level"] = "*Please enter the expert level.";
+        }
+
+        if (!fields["description"]) {
+            isFormValid = false;
+            errors["description"] = "*Please enter the description.";
+        }
+
+        this.setState({
+            errors: errors
         });
+        return isFormValid;
     }
 
     componentWillMount() {
@@ -66,12 +85,14 @@ class AddExpertLevel extends React.Component {
                         <label>Level:</label>
                         <input type="text" name="level" className="form-control" value={this.state.expertLevel.level } 
                         onChange={this.handleChange}/>
+                        <div className="errorMsg">{this.state.errors.level}</div>
                     </div>
 
                     <div className="form-group">
                         <label>Description:</label>
                         <input type="text" name="description" className="form-control" value={this.state.expertLevel.description }
                         onChange={this.handleChange}/>
+                        <div className="errorMsg">{this.state.errors.description}</div>
                     </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>
