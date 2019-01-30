@@ -5,7 +5,12 @@ class AddExpertLevel extends React.Component {
 
     constructor() {
         super();
-        this.state = {expertLevel: {}, errors: {}, fields: {}}
+
+        this.state = {
+            fields: {}, 
+            errors: {}
+        }
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -20,6 +25,8 @@ class AddExpertLevel extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+
+        debugger;
 
         if (this.validateForm()) {
             fetch('http://api.trainershub.com/api/expertlevels', {
@@ -83,16 +90,16 @@ class AddExpertLevel extends React.Component {
 
                     <div className="form-group">
                         <label>Level:</label>
-                        <input type="text" name="level" className="form-control" value={this.state.expertLevel.level } 
+                        <input type="text" name="level" className="form-control" value={this.state.fields.level } 
                         onChange={this.handleChange}/>
-                        <div className="errorMsg">{this.state.errors.level}</div>
+                        <div className="text-danger">{this.state.errors.level}</div>
                     </div>
 
                     <div className="form-group">
                         <label>Description:</label>
-                        <input type="text" name="description" className="form-control" value={this.state.expertLevel.description }
+                        <input type="text" name="description" className="form-control" value={this.state.fields.description }
                         onChange={this.handleChange}/>
-                        <div className="errorMsg">{this.state.errors.description}</div>
+                        <div className="text-danger">{this.state.errors.description}</div>
                     </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>
@@ -107,3 +114,4 @@ export default AddExpertLevel;
 // TODO
 // https://www.codementor.io/blizzerand/building-forms-using-react-everything-you-need-to-know-iz3eyoq4y
 // https://medium.com/@everdimension/how-to-handle-forms-with-just-react-ac066c48bd4f
+// https://www.skptricks.com/2018/06/simple-form-validation-in-reactjs-example.html
