@@ -51,8 +51,6 @@ class AddExpertLevel extends React.Component {
         let errors = {};
         let isFormValid = true;
 
-        var level = this.state.expertLevel;
-
         if (!fields["level"]) {
             isFormValid = false;
             errors["level"] = "*Please enter the expert level.";

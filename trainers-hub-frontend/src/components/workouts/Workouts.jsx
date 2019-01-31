@@ -37,6 +37,10 @@ class Workouts extends React.Component {
         });
     }
 
+    handleEditeWorkout(id) {
+        alert("Edit");
+    }
+
     getWorkouts() {
 
         fetch('http://api.trainershub.com/api/workouts')
@@ -62,6 +66,7 @@ class Workouts extends React.Component {
             return (
               <WorkoutItem
                 onDelete={this.handleDeleteWorkout.bind(this)}
+                onEdit={this.handleEditeWorkout.bind(this)}
                 key={workout.id}
                 workout={workout}
               />

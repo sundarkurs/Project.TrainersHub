@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
+import { GetValue } from '../utilities/QueryString';
 
-class AddWorkout extends React.Component {
+class EditWorkout extends React.Component {
 
     constructor() {
         super();
@@ -23,12 +24,31 @@ class AddWorkout extends React.Component {
         });
     }
 
+    getWorkout(id){
+        fetch('http://api.trainershub.com/api/workouts/' + id)
+        .then(response => response.json())
+        .then(data => {
+            debugger;
+                this.setState({ fields: data },
+                    function() {
+                        console.log(this.state);
+                      }
+                    )
+
+                this.setState({
+                    workoutId: data.id
+                });
+                
+            }
+        );
+    }
+
     handleSubmit(event) {
         event.preventDefault();
 
         if (this.validateForm()) {
-            fetch('http://api.trainershub.com/api/workouts', {
-            method: 'POST',
+            fetch('http://api.trainershub.com/api/workouts/' + this.state.workoutId , {
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -37,7 +57,7 @@ class AddWorkout extends React.Component {
             })
             .then(data => {
                 if(data.status == 200){
-                    this.setState({ redirect: true })
+                    alert("Updated");
                 }
             });
         }
@@ -66,6 +86,16 @@ class AddWorkout extends React.Component {
     }
 
     componentWillMount() {
+        debugger;
+
+        let workoutId = GetValue("id");
+
+        if(workoutId){
+
+            
+
+            this.getWorkout(workoutId);
+        }
     }
 
     render(){
@@ -73,13 +103,13 @@ class AddWorkout extends React.Component {
         const { redirect } = this.state;
 
         if (redirect) {
-        return <Redirect to='/workouts'/>;
+            return <Redirect to='/workouts'/>;
         }
 
         return (
             <div>
                 <div className="page-header">
-                    <h2>Add workout</h2>
+                    <h2>Edit workout</h2>
                 </div>
 
                 <form onSubmit={this.handleSubmit}>
@@ -105,8 +135,6 @@ class AddWorkout extends React.Component {
     }
 };
 
-export default AddWorkout;
+export default EditWorkout;
 
-// TODO
-// https://www.codementor.io/blizzerand/building-forms-using-react-everything-you-need-to-know-iz3eyoq4y
-// https://medium.com/@everdimension/how-to-handle-forms-with-just-react-ac066c48bd4f
+

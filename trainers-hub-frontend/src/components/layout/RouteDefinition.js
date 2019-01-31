@@ -9,6 +9,7 @@ import Trainers from "../trainers/Trainers"
 import AddTrainer from "../trainers/AddTrainer"
 import Workouts from "../workouts/Workouts"
 import AddWorkout from "../workouts/AddWorkout"
+import EditWorkout from "../workouts/EditWorkout"
 import ExpertLevels from "../expertLevels/ExpertLevels"
 import AddExpertLevel from "../expertLevels/AddExpertLevel"
 
@@ -22,6 +23,7 @@ const RouteDefinition = () => {
             <Route path="/addtrainer" component={AddTrainer} />
             <Route path="/workouts" component={Workouts} />
             <Route path="/addworkout" component={AddWorkout} />
+            <Route path="/editworkout" component={EditWorkout} />
             <Route path="/expertlevels" component={ExpertLevels} />
             <Route path="/addexpertlevel" component={AddExpertLevel} />
             <Route component={Error} />
