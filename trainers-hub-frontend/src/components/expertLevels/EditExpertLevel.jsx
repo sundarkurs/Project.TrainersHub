@@ -46,8 +46,6 @@ class EditExpertLevel extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        debugger;
-
         if (this.validateForm()) {
             fetch('http://api.trainershub.com/api/expertlevels/' + this.state.expertLevelId, {
             method: 'PUT',

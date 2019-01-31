@@ -43,7 +43,7 @@ class WorkoutItem extends Component {
                 className="btn btn-secondary">Edit</a> */}
 
                 <a href={ "/editWorkout?id=" + this.props.workout.id } className="btn btn-primary">Edit</a>
-
+                
             </div>
         </div>
     );

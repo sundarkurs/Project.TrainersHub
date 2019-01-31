@@ -75,6 +75,7 @@ class AddTrainer extends React.Component {
                     </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>
+                    <a href="/trainers" className="btn btn-info">Go back</a>
                 </form>
             </div>
           );
