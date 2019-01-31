@@ -19,6 +19,7 @@ class ExpertLevelItem extends Component {
               <p className="card-text">{this.props.expertLevel.description}</p>
                <a href="#" onClick={this.deleteExpertLevel.bind(this, this.props.expertLevel.id)} 
                className="btn btn-danger">Delete</a>
+               <a href={ "/editexpertlevel?id=" + this.props.expertLevel.id } className="btn btn-primary">Edit</a>
             </div>
         </div>
     );

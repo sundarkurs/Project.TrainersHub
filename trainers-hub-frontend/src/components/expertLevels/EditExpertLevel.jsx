@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
 import { GetValue } from '../utilities/QueryString';
 
-class EditWorkout extends React.Component {
+class EditExpertLevel extends React.Component {
 
     constructor() {
         super();
@@ -11,7 +11,7 @@ class EditWorkout extends React.Component {
             fields: {}, 
             errors: {}
         }
-           
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -24,8 +24,8 @@ class EditWorkout extends React.Component {
         });
     }
 
-    getWorkout(id){
-        fetch('http://api.trainershub.com/api/workouts/' + id)
+    getExpertLevel(id){
+        fetch('http://api.trainershub.com/api/expertlevels/' + id)
         .then(response => response.json())
         .then(data => {
             debugger;
@@ -36,7 +36,7 @@ class EditWorkout extends React.Component {
                 )
 
                 this.setState({
-                    workoutId: data.id
+                    expertLevelId: data.id
                 });
                 
             }
@@ -46,8 +46,10 @@ class EditWorkout extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
+        debugger;
+
         if (this.validateForm()) {
-            fetch('http://api.trainershub.com/api/workouts/' + this.state.workoutId , {
+            fetch('http://api.trainershub.com/api/expertlevels/' + this.state.expertLevelId, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -64,14 +66,13 @@ class EditWorkout extends React.Component {
     }
 
     validateForm(){
-        debugger;
         let fields = this.state.fields;
         let errors = {};
         let isFormValid = true;
 
-        if (!fields["type"]) {
+        if (!fields["level"]) {
             isFormValid = false;
-            errors["type"] = "*Please enter the expert level.";
+            errors["level"] = "*Please enter the expert level.";
         }
 
         if (!fields["description"]) {
@@ -86,10 +87,10 @@ class EditWorkout extends React.Component {
     }
 
     componentWillMount() {
-        let workoutId = GetValue("id");
+        let expertLevelId = GetValue("id");
 
-        if(workoutId){
-            this.getWorkout(workoutId);
+        if(expertLevelId){
+            this.getExpertLevel(expertLevelId);
         }
     }
 
@@ -98,22 +99,22 @@ class EditWorkout extends React.Component {
         const { redirect } = this.state;
 
         if (redirect) {
-            return <Redirect to='/workouts'/>;
+            return <Redirect to='/expertlevels'/>;
         }
 
         return (
             <div>
                 <div className="page-header">
-                    <h2>Edit workout</h2>
+                    <h2>Add expert level</h2>
                 </div>
 
                 <form onSubmit={this.handleSubmit}>
 
                     <div className="form-group">
-                        <label>Type:</label>
-                        <input type="text" name="type" className="form-control" value={this.state.fields.type } 
+                        <label>Level:</label>
+                        <input type="text" name="level" className="form-control" value={this.state.fields.level } 
                         onChange={this.handleChange}/>
-                        <div className="text-danger">{this.state.errors.type}</div>
+                        <div className="text-danger">{this.state.errors.level}</div>
                     </div>
 
                     <div className="form-group">
@@ -124,13 +125,11 @@ class EditWorkout extends React.Component {
                     </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>
-                    <a href="/workouts" className="btn btn-info">Go back</a>
+                    <a href="/expertlevels" className="btn btn-info">Go back</a>
                 </form>
             </div>
           );
     }
 };
 
-export default EditWorkout;
-
-
+export default EditExpertLevel;
