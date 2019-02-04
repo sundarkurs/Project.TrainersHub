@@ -62,10 +62,14 @@ class Workouts extends React.Component {
         this.getWorkouts();
 
         if(this.props.location.state && this.props.location.state.statusCode && this.props.location.state.statusMessage){
-            this.state.showMessage = true;
-            this.state.statusCode = this.props.location.state.statusCode;
-            this.state.statusMessage = this.props.location.state.statusMessage;
 
+            this.setState({
+                showMessage : true,
+                statusCode : this.props.location.state.statusCode,
+                statusMessage : this.props.location.state.statusMessage
+            });
+
+            // Clearing the location state which was received from other component route
             this.props.history.replace({
                 pathname: '/workouts',
                 state: {}

@@ -6,10 +6,20 @@ class Message extends React.Component {
         super();
     }
 
+    getMessageType(code) {
+        if(code == "SUCCESS"){
+            return "alert alert-success";
+        } else if(code == "ERROR"){
+            return "alert alert-danger";
+        } else if(code == "INFO"){
+            return "alert alert-info";
+        }
+    }
+
     render(){
         return (
-            <div className="alert alert-success">
-                <strong>{this.props.code}!</strong> {this.props.message}.
+            <div className={this.getMessageType(this.props.code)}>
+                <strong>{this.props.message}</strong>
             </div>
           );
     }
