@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import WorkoutItem from "./WorkoutItem"
 import AddWorkout from "./AddWorkout"
-import Message from "./Message"
+import Message from "../common/Message"
 
 import { Route, Switch } from 'react-router-dom';
 
