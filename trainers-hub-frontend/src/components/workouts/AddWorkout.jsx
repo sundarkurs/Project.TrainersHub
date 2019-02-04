@@ -73,7 +73,16 @@ class AddWorkout extends React.Component {
         const { redirect } = this.state;
 
         if (redirect) {
-        return <Redirect to='/workouts'/>;
+            let redirectStatus = {
+                statusCode: "SUCCESS",
+                statusMessage : "Workout " + this.state.fields.type + " is created successfully."
+            };
+            
+            this.props.history.push({
+                pathname: '/workouts',
+                state: redirectStatus
+              })
+            // return <Redirect to='/workouts'/>;
         }
 
         return (

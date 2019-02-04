@@ -34,7 +34,10 @@ class Workouts extends React.Component {
             if(data.status == 200){
                 workouts.splice(index, 1);
                 this.setState({
-                    workouts: workouts
+                    workouts: workouts,
+                    showMessage : true,
+                    statusCode : "SUCCESS",
+                    statusMessage : "Workout deletetd successfully."
                 });
             }
             // TODO : Exception handle
@@ -62,10 +65,17 @@ class Workouts extends React.Component {
             this.state.showMessage = true;
             this.state.statusCode = this.props.location.state.statusCode;
             this.state.statusMessage = this.props.location.state.statusMessage;
+
+            this.props.history.replace({
+                pathname: '/workouts',
+                state: {}
+            });
         }
     }
 
     render(){
+        debugger;
+
         let workoutItems;
         if (this.state.workouts) {
             workoutItems = this.state.workouts.map(workout => {
