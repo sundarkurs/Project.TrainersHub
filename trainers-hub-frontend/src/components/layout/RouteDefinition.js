@@ -25,6 +25,9 @@ const RouteDefinition = () => {
             <Route path="/workouts" component={Workouts} />
             <Route path="/addworkout" component={AddWorkout} />
             <Route path="/editworkout" component={EditWorkout} />
+
+            {/* <Route path='/' render={ props => <EditWorkout {...props} />} /> */}
+
             <Route path="/expertlevels" component={ExpertLevels} />
             <Route path="/addexpertlevel" component={AddExpertLevel} />
             <Route path="/editexpertlevel" component={EditExpertLevel} />

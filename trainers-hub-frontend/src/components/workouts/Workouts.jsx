@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import WorkoutItem from "./WorkoutItem"
 import AddWorkout from "./AddWorkout"
+import Message from "./Message"
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -10,7 +11,10 @@ class Workouts extends React.Component {
         super();
     
         this.state = {
-            workouts: []
+            workouts: [],
+            showMessage: false,
+            statusCode: '',
+            statusMessage: ''
         };
     }
 
@@ -37,10 +41,6 @@ class Workouts extends React.Component {
         });
     }
 
-    handleEditeWorkout(id) {
-        alert("Edit");
-    }
-
     getWorkouts() {
 
         fetch('http://api.trainershub.com/api/workouts')
@@ -57,6 +57,12 @@ class Workouts extends React.Component {
 
     componentWillMount() {
         this.getWorkouts();
+
+        if(this.props.location.state && this.props.location.state.statusCode && this.props.location.state.statusMessage){
+            this.state.showMessage = true;
+            this.state.statusCode = this.props.location.state.statusCode;
+            this.state.statusMessage = this.props.location.state.statusMessage;
+        }
     }
 
     render(){
@@ -66,7 +72,6 @@ class Workouts extends React.Component {
             return (
               <WorkoutItem
                 onDelete={this.handleDeleteWorkout.bind(this)}
-                onEdit={this.handleEditeWorkout.bind(this)}
                 key={workout.id}
                 workout={workout}
               />
@@ -79,6 +84,10 @@ class Workouts extends React.Component {
                 {/* <Route path='/workouts/add' component={ AddWorkout } /> */}
                 <div className="page-header">
                     <h2>Workouts</h2>
+                </div>
+
+                <div>
+                    { this.state.showMessage ? <Message message={this.state.statusMessage} code={this.state.statusCode} /> : null }
                 </div>
 
                 <div className="">

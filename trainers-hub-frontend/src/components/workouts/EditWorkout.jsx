@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom'
+import { Redirect  } from 'react-router-dom'
 import { GetValue } from '../utilities/QueryString';
 
 class EditWorkout extends React.Component {
@@ -28,17 +28,14 @@ class EditWorkout extends React.Component {
         fetch('http://api.trainershub.com/api/workouts/' + id)
         .then(response => response.json())
         .then(data => {
-            debugger;
                 this.setState({ fields: data },
                     function() {
                         console.log(this.state);
                     }
                 )
-
                 this.setState({
                     workoutId: data.id
                 });
-                
             }
         );
     }
@@ -64,7 +61,6 @@ class EditWorkout extends React.Component {
     }
 
     validateForm(){
-        debugger;
         let fields = this.state.fields;
         let errors = {};
         let isFormValid = true;
@@ -91,14 +87,22 @@ class EditWorkout extends React.Component {
         if(workoutId){
             this.getWorkout(workoutId);
         }
+
     }
 
     render(){
-
         const { redirect } = this.state;
 
         if (redirect) {
-            return <Redirect to='/workouts'/>;
+            let redirectStatus = {
+                statusCode: "SUCCESS",
+                statusMessage : "Workout " + this.state.fields.type + " is updated successfully."
+            };
+            
+            this.props.history.push({
+                pathname: '/workouts',
+                state: redirectStatus
+              })
         }
 
         return (
@@ -133,4 +137,4 @@ class EditWorkout extends React.Component {
 
 export default EditWorkout;
 
-
+// https://medium.com/@anneeb/redirecting-in-react-4de5e517354a
