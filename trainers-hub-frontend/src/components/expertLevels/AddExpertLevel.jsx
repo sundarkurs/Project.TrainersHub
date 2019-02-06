@@ -77,10 +77,13 @@ class AddExpertLevel extends React.Component {
                 statusMessage : "Expertise level  " + this.state.fields.level + " is created successfully."
             };
             
-            this.props.history.push({
-                pathname: '/expertlevels',
-                state: redirectStatus
-              })
+            return <Redirect to={
+                {
+                    pathname: "/expertlevels",
+                    //search: "?name=sundar",
+                    state: redirectStatus
+                }
+            }/>
         }
 
         return (
