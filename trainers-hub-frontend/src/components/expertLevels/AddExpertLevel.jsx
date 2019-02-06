@@ -26,8 +26,6 @@ class AddExpertLevel extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        debugger;
-
         if (this.validateForm()) {
             fetch('http://api.trainershub.com/api/expertlevels', {
             method: 'POST',
@@ -46,7 +44,6 @@ class AddExpertLevel extends React.Component {
     }
 
     validateForm(){
-        debugger;
         let fields = this.state.fields;
         let errors = {};
         let isFormValid = true;
@@ -75,7 +72,15 @@ class AddExpertLevel extends React.Component {
         const { redirect } = this.state;
 
         if (redirect) {
-            return <Redirect to='/expertlevels'/>;
+            let redirectStatus = {
+                statusCode: "SUCCESS",
+                statusMessage : "Expertise level  " + this.state.fields.level + " is created successfully."
+            };
+            
+            this.props.history.push({
+                pathname: '/expertlevels',
+                state: redirectStatus
+              })
         }
 
         return (

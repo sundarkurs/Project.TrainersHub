@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import ExpertLevelItem from "./ExpertLevelItem"
 import AddExpertLevel from "./AddExpertLevel"
+import Message from "../common/Message"
 
 class ExpertLevels extends React.Component {
 
@@ -10,7 +11,10 @@ class ExpertLevels extends React.Component {
         super();
     
         this.state = {
-            expertLevels: []
+            expertLevels: [],
+            showMessage: false,
+            statusCode: '',
+            statusMessage: ''
         };
     }
 
@@ -30,7 +34,10 @@ class ExpertLevels extends React.Component {
             if(data.status == 200){
                 expertLevels.splice(index, 1);
                 this.setState({
-                    expertLevels: expertLevels
+                    expertLevels: expertLevels,
+                    showMessage : true,
+                    statusCode : "SUCCESS",
+                    statusMessage : "Expertise level deleted successfully."
                 });
             }
             // TODO : Exception handle
@@ -53,6 +60,22 @@ class ExpertLevels extends React.Component {
 
     componentWillMount() {
         this.getExpertLevels();
+
+        if(this.props.location.state && this.props.location.state.statusCode && this.props.location.state.statusMessage){
+
+            this.setState({
+                showMessage : true,
+                statusCode : this.props.location.state.statusCode,
+                statusMessage : this.props.location.state.statusMessage
+            });
+
+            // Clearing the location state which was received from other component route
+            this.props.history.replace({
+                pathname: '/expertlevels',
+                state: {}
+            });
+        }
+
     }
 
     render(){
@@ -73,6 +96,10 @@ class ExpertLevels extends React.Component {
             <div>
                 <div className="page-header">
                     <h2>Expert Levels</h2>
+                </div>
+
+                <div>
+                    { this.state.showMessage ? <Message message={this.state.statusMessage} code={this.state.statusCode} /> : null }
                 </div>
 
                 <div className="">

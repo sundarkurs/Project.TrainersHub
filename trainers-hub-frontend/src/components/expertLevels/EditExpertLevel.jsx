@@ -96,8 +96,21 @@ class EditExpertLevel extends React.Component {
 
         const { redirect } = this.state;
 
+        // TODO with Redirect
+        // if (redirect) {
+        //     return <Redirect to='/expertlevels'/>;
+        // }
+
         if (redirect) {
-            return <Redirect to='/expertlevels'/>;
+            let redirectStatus = {
+                statusCode: "SUCCESS",
+                statusMessage : "Expertise level " + this.state.fields.level + " is updated successfully."
+            };
+            
+            this.props.history.push({
+                pathname: '/expertlevels',
+                state: redirectStatus
+              })
         }
 
         return (
