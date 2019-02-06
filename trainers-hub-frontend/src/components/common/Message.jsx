@@ -6,7 +6,7 @@ class Message extends React.Component {
         super();
     }
 
-    getMessageType(code) {
+    getCssClass(code) {
         if(code == "SUCCESS"){
             return "alert alert-success";
         } else if(code == "ERROR"){
@@ -18,7 +18,7 @@ class Message extends React.Component {
 
     render(){
         return (
-            <div className={this.getMessageType(this.props.code)}>
+            <div className={this.getCssClass(this.props.code)}>
                 <strong>{this.props.message}</strong>
             </div>
           );

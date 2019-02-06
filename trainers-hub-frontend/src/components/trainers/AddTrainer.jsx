@@ -51,7 +51,16 @@ class AddTrainer extends React.Component {
         const { redirect } = this.state;
 
         if (redirect) {
-        return <Redirect to='/trainers'/>;
+            return <Redirect to='/trainers'/>;
+
+            // <Redirect to={
+            //     {
+            //         pathname: "/login",
+            //         search: "?utm=your+face",
+            //         state: { referrer: currentLocation }
+            //     }
+            // }/>
+
         }
 
         return (

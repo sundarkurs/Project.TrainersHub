@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from 'react-router-dom';
 
 import Home from "../Home"
-import Contact from "../Contact"
+import Contact from "../contactUs/Contact"
 import About from "../About"
 import Error from "../Error"
 import Trainers from "../trainers/Trainers"
@@ -37,3 +37,5 @@ const RouteDefinition = () => {
 };
 
 export default RouteDefinition;
+
+// https://itnext.io/basics-of-react-router-v4-336d274fd9e0
