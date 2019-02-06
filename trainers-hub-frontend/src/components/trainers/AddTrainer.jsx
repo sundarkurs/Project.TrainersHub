@@ -1,29 +1,33 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
 
+import MySelect from "../common/MySelect"
+import MyInput from "../common/MyInput"
+
 class AddTrainer extends React.Component {
 
     constructor() {
         super();
 
-        this.state = (
-            { trainer: { firstName: '', lastName : '', email : '', phone : '', dateOfBirth : '', address : '', dateOfJoin : '', profilePic: ''}}
-        );
+        this.state = {
+            fields: {}, 
+            errors: {}
+        }
+
+        // this.state = (
+        //     { trainer: { firstName: '', lastName : '', email : '', phone : '', dateOfBirth : '', address : '', dateOfJoin : '', profilePic: ''}}
+        // );
            
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        var trainer = this.state.trainer;
-
-        if(event.target.name == "firstName"){
-            trainer.firstName = event.target.value
-        }
-        if(event.target.name == "lastName"){
-            trainer.lastName = event.target.value
-        }
-        this.setState({trainer: trainer});
+        let fields = this.state.fields;
+        fields[event.target.name] = event.target.value;
+        this.setState({
+            fields
+        });
     }
 
     handleSubmit(event) {
@@ -34,7 +38,7 @@ class AddTrainer extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.state.trainer)
+            body: JSON.stringify(this.state.fields)
         })
         .then(data => {
             if(data.status == 200){
@@ -71,15 +75,68 @@ class AddTrainer extends React.Component {
 
                 <form onSubmit={this.handleSubmit}>
 
+                    <MyInput type={'text'}
+                        title= {'First Name'} 
+                        name= {'firstName'}
+                        value={this.state.fields.firstName} 
+                        placeholder = {'Enter your first name'}
+                        handleChange = {this.handleChange}
+                    />
+
+                    <MyInput type={'text'}
+                        title= {'Last Name'} 
+                        name= {'lastName'}
+                        value={this.state.fields.lastName} 
+                        placeholder = {'Enter your last name'}
+                        handleChange = {this.handleChange}
+                    />
+
+                    <MySelect title={'Gender'}
+                        name={'gender'}
+                        options = {['Male', 'Female']} 
+                        value = {this.state.fields.gender}
+                        placeholder = {'Select Gender'}
+                        handleChange = {this.handleChange}
+                    />
+
+                    {/* <div className="form-group">
+                        <label>Gender:</label>
+                        <input type="text" name="gender" className="form-control"/>
+                    </div> */}
+
                     <div className="form-group">
-                        <label>First Name:</label>
-                        <input type="text" name="firstName" className="form-control" value={this.state.trainer.firstName } 
+                        <label>Email:</label>
+                        <input type="text" name="email" className="form-control" value={this.state.fields.email }
                         onChange={this.handleChange}/>
                     </div>
 
                     <div className="form-group">
-                        <label>Last Name:</label>
-                        <input type="text" name="lastName" className="form-control" value={this.state.trainer.lastName }
+                        <label>Phone:</label>
+                        <input type="text" name="phone" className="form-control" value={this.state.fields.phone }
+                        onChange={this.handleChange}/>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Date of Birth:</label>
+                        <input type="text" name="dateOfBirth" className="form-control" value={this.state.fields.dateOfBirth }
+                        onChange={this.handleChange}/>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Address:</label>
+                        <input type="text" name="address" className="form-control" value={this.state.fields.address }
+                        onChange={this.handleChange}/>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Date of Join:</label>
+                        <input type="text" name="dateOfJoin" className="form-control" value={this.state.fields.dateOfJoin }
+                        onChange={this.handleChange}/>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Profile Pic:</label>
+                        <input type="text" name="profilePic" className="form-control" value={this.state.fields.profilePic }
                         onChange={this.handleChange}/>
                     </div>
 
