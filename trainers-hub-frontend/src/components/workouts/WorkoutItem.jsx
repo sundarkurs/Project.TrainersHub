@@ -1,28 +1,25 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 class WorkoutItem extends Component {
     
-  deleteWorkout(id) {
-    this.props.onDelete(id);
-  }
+  deleteWorkout(workout) {
 
-  editWorkout(workout) {
-    debugger
-    fetch('http://api.trainershub.com/api/workouts/' + workout.id, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(workout)
-            })
-            .then(data => {
-              debugger;
-                if(data.status == 200){
-                    alert("Updated");
-                }
-            });
+    confirmAlert({
+      title: 'Are you sure?',
+      message: 'You want to delete the ' + workout.type + " workout?",
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.props.onDelete(workout.id)
+        },
+        {
+          label: 'No',
+        }
+      ]
+    })
   }
 
   render() {
@@ -37,13 +34,9 @@ class WorkoutItem extends Component {
             <div className="card-body">
                 <h4 className="card-title">{this.props.workout.type}</h4>
                 <p className="card-text">{this.props.workout.description}</p>
-                <a href="#" onClick={this.deleteWorkout.bind(this, this.props.workout.id)} 
+                <a href="#" onClick={this.deleteWorkout.bind(this, this.props.workout)} 
                 className="btn btn-danger">Delete</a>
-                {/* <a href="#" onClick={this.editWorkout.bind(this, this.props.workout)} 
-                className="btn btn-secondary">Edit</a> */}
-
                 <a href={ "/editWorkout?id=" + this.props.workout.id } className="btn btn-primary">Edit</a>
-                
             </div>
         </div>
     );

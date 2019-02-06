@@ -37,7 +37,7 @@ class Workouts extends React.Component {
                     workouts: workouts,
                     showMessage : true,
                     statusCode : "SUCCESS",
-                    statusMessage : "Workout deletetd successfully."
+                    statusMessage : "Workout deleted successfully."
                 });
             }
             // TODO : Exception handle
