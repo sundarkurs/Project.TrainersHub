@@ -13,6 +13,8 @@ const Input = (props) => {
         onChange={props.handleChange}
         placeholder={props.placeholder} 
       />
+
+      <div className="text-danger">{props.error}</div>
     </div>
   )
 }

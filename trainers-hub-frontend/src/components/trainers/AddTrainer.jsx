@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
+import DateTimePicker from 'react-datetime-picker';
 
 import MySelect from "../common/MySelect"
 import MyInput from "../common/MyInput"
@@ -19,12 +20,24 @@ class AddTrainer extends React.Component {
         // );
            
         this.handleChange = this.handleChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
         let fields = this.state.fields;
+        
         fields[event.target.name] = event.target.value;
+        this.setState({
+            fields
+        });
+    }
+
+    handleDateChange(date){
+        debugger;
+        let fields = this.state.fields;
+        
+        fields["dateOfBirth"] = date;
         this.setState({
             fields
         });
@@ -32,19 +45,74 @@ class AddTrainer extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('http://api.trainershub.com/api/trainers', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state.fields)
-        })
-        .then(data => {
-            if(data.status == 200){
-                this.setState({ redirect: true })
-            }
+
+        if (this.validateForm()) {
+            fetch('http://api.trainershub.com/api/trainers', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.state.fields)
+            })
+            .then(data => {
+                if(data.status == 200){
+                    this.setState({ redirect: true })
+                }
+            });
+        }
+    }
+
+    validateForm(){
+        debugger;
+        let fields = this.state.fields;
+        let errors = {};
+        let isFormValid = true;
+
+        if (!fields["firstName"]) {
+            isFormValid = false;
+            errors["firstName"] = "*Please enter the first name.";
+        }
+
+        if(typeof fields["firstName"] !== "undefined"){
+            if(!fields["firstName"].match(/^[a-zA-Z]+$/)){
+                isFormValid = false;
+               errors["firstName"] = "Only alphabets are allowed.";
+            }        
+         }
+
+        if (!fields["lastName"]) {
+            isFormValid = false;
+            errors["lastName"] = "Please enter the last name.";
+        }
+
+        if (!fields["email"]) {
+            isFormValid = false;
+            errors["email"] = "Please enter the email address.";
+        }
+
+        if(typeof fields["email"] !== "undefined"){
+            var emailExpression = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+
+            if(!fields["email"].match(emailExpression)){
+                isFormValid = false;
+               errors["email"] = "Please enter a valid email address.";
+            }        
+         }
+
+         if(typeof fields["phone"] !== "undefined"){
+            var phoneExpression = /[0-9]+/;
+
+            if(!fields["phone"].match(phoneExpression)){
+                isFormValid = false;
+               errors["phone"] = "Please enter a valid phone number.";
+            }        
+         }
+
+        this.setState({
+            errors: errors
         });
+        return isFormValid;
     }
 
     componentWillMount() {
@@ -79,6 +147,7 @@ class AddTrainer extends React.Component {
                         title= {'First Name'} 
                         name= {'firstName'}
                         value={this.state.fields.firstName} 
+                        error={this.state.errors.firstName} 
                         placeholder = {'Enter your first name'}
                         handleChange = {this.handleChange}
                     />
@@ -87,6 +156,7 @@ class AddTrainer extends React.Component {
                         title= {'Last Name'} 
                         name= {'lastName'}
                         value={this.state.fields.lastName} 
+                        error={this.state.errors.lastName} 
                         placeholder = {'Enter your last name'}
                         handleChange = {this.handleChange}
                     />
@@ -99,27 +169,31 @@ class AddTrainer extends React.Component {
                         handleChange = {this.handleChange}
                     />
 
-                    {/* <div className="form-group">
-                        <label>Gender:</label>
-                        <input type="text" name="gender" className="form-control"/>
-                    </div> */}
+                    <MyInput type={'text'}
+                        title= {'Email'} 
+                        name= {'email'}
+                        value={this.state.fields.email} 
+                        error={this.state.errors.email} 
+                        placeholder = {'Enter your email address.'}
+                        handleChange = {this.handleChange}
+                    />
 
-                    <div className="form-group">
-                        <label>Email:</label>
-                        <input type="text" name="email" className="form-control" value={this.state.fields.email }
-                        onChange={this.handleChange}/>
-                    </div>
-
-                    <div className="form-group">
-                        <label>Phone:</label>
-                        <input type="text" name="phone" className="form-control" value={this.state.fields.phone }
-                        onChange={this.handleChange}/>
-                    </div>
+                    <MyInput type={'text'}
+                        title= {'Phone'} 
+                        name= {'phone'}
+                        value={this.state.fields.phone} 
+                        error={this.state.errors.phone} 
+                        placeholder = {'Enter your phone number.'}
+                        handleChange = {this.handleChange}
+                    />
 
                     <div className="form-group">
                         <label>Date of Birth:</label>
-                        <input type="text" name="dateOfBirth" className="form-control" value={this.state.fields.dateOfBirth }
-                        onChange={this.handleChange}/>
+                        {/* <input type="text" name="dateOfBirth" className="form-control" value={this.state.fields.dateOfBirth }
+                        onChange={this.handleChange}/> */}
+                        <DateTimePicker className="calendarClassName" name="dateOfBirth" 
+                            onChange={this.handleDateChange} 
+                            value={this.state.fields.dateOfBirth} />
                     </div>
 
                     <div className="form-group">
