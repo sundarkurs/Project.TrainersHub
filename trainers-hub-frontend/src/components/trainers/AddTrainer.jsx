@@ -33,11 +33,10 @@ class AddTrainer extends React.Component {
         });
     }
 
-    handleDateChange(date){
-        debugger;
+    handleDateChange(fieldName, date){
         let fields = this.state.fields;
         
-        fields["dateOfBirth"] = date;
+        fields[fieldName] = date;
         this.setState({
             fields
         });
@@ -71,7 +70,7 @@ class AddTrainer extends React.Component {
 
         if (!fields["firstName"]) {
             isFormValid = false;
-            errors["firstName"] = "*Please enter the first name.";
+            errors["firstName"] = "Please enter the first name.";
         }
 
         if(typeof fields["firstName"] !== "undefined"){
@@ -189,23 +188,24 @@ class AddTrainer extends React.Component {
 
                     <div className="form-group">
                         <label>Date of Birth:</label>
-                        {/* <input type="text" name="dateOfBirth" className="form-control" value={this.state.fields.dateOfBirth }
-                        onChange={this.handleChange}/> */}
-                        <DateTimePicker className="calendarClassName" name="dateOfBirth" 
-                            onChange={this.handleDateChange} 
+                        <br/>
+                        <DateTimePicker className="date-picker-extension" name="dateOfBirth" 
+                            onChange={(e) => this.handleDateChange('dateOfBirth', e)}
                             value={this.state.fields.dateOfBirth} />
                     </div>
 
                     <div className="form-group">
                         <label>Address:</label>
-                        <input type="text" name="address" className="form-control" value={this.state.fields.address }
+                        <textarea type="text" rows="3" cols="100" name="address" className="form-control" value={this.state.fields.address }
                         onChange={this.handleChange}/>
                     </div>
 
                     <div className="form-group">
                         <label>Date of Join:</label>
-                        <input type="text" name="dateOfJoin" className="form-control" value={this.state.fields.dateOfJoin }
-                        onChange={this.handleChange}/>
+                        <br/>
+                        <DateTimePicker className="date-picker-extension" name="dateOfJoin" 
+                            onChange={(e) => this.handleDateChange('dateOfJoin', e)}
+                            value={this.state.fields.dateOfJoin} />
                     </div>
 
                     <div className="form-group">
