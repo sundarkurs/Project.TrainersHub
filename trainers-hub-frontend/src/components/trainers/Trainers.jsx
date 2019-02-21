@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from 'react-router-dom';
 import TrainerItem from "./TrainerItem"
+import Message from "../common/Message"
 
 class Trainers extends React.Component {
 
@@ -8,7 +9,10 @@ class Trainers extends React.Component {
         super();
     
         this.state = {
-            trainers: []
+            trainers: [],
+            showMessage: false,
+            statusCode: '',
+            statusMessage: ''
         };
     }
 
@@ -28,7 +32,10 @@ class Trainers extends React.Component {
             if(data.status == 200){
                 trainers.splice(index, 1);
                 this.setState({
-                    trainers: trainers
+                    trainers: trainers,
+                    showMessage : true,
+                    statusCode : "SUCCESS",
+                    statusMessage : "Trainer deleted successfully."
                 });
             }
             // TODO : Exception handle
@@ -51,6 +58,22 @@ class Trainers extends React.Component {
 
     componentWillMount() {
         this.getTrainers();
+
+        if(this.props.location.state && this.props.location.state.statusCode && this.props.location.state.statusMessage){
+
+            this.setState({
+                showMessage : true,
+                statusCode : this.props.location.state.statusCode,
+                statusMessage : this.props.location.state.statusMessage
+            });
+
+            // https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/history.md
+            // Clearing the location state which was received from other component route
+            this.props.history.replace({
+                pathname: '/trainers',
+                state: {}
+            });
+        }
     }
 
     render(){
@@ -71,6 +94,10 @@ class Trainers extends React.Component {
             <div>
                 <div className="page-header">
                     <h2>Trainers</h2>
+                </div>
+
+                <div>
+                    { this.state.showMessage ? <Message message={this.state.statusMessage} code={this.state.statusCode} /> : null }
                 </div>
 
                 <div className="">
