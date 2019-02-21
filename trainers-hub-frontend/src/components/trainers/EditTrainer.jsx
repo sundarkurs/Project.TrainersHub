@@ -13,7 +13,8 @@ class EditTrainer extends React.Component {
 
         this.state = {
             fields: {}, 
-            errors: {}
+            errors: {},
+            dates: {dob : new Date("2019-02-07T18:30:00")}
         }
 
         // this.state = (
@@ -47,6 +48,10 @@ class EditTrainer extends React.Component {
         fetch('http://api.trainershub.com/api/trainers/' + id)
         .then(response => response.json())
         .then(data => {
+            debugger;
+            data.dateOfBirth = new Date(data.dateOfBirth);
+            data.dateOfJoin = new Date(data.dateOfJoin);
+
                 this.setState({ 
                     fields: data 
                 })
@@ -101,6 +106,13 @@ class EditTrainer extends React.Component {
             errors["lastName"] = "Please enter the last name.";
         }
 
+        if(typeof fields["lastName"] !== "undefined"){
+            if(!fields["lastName"].match(/^[a-zA-Z]+$/)){
+                isFormValid = false;
+               errors["lastName"] = "Only alphabets are allowed.";
+            }        
+         }
+
         if (!fields["email"]) {
             isFormValid = false;
             errors["email"] = "Please enter the email address.";
@@ -115,7 +127,7 @@ class EditTrainer extends React.Component {
             }        
          }
 
-         if(typeof fields["phone"] !== "undefined"){
+         if(typeof fields["phone"] !== "undefined" && fields["phone"] != null){
             var phoneExpression = /[0-9]+/;
 
             if(!fields["phone"].match(phoneExpression)){
@@ -123,6 +135,16 @@ class EditTrainer extends React.Component {
                errors["phone"] = "Please enter a valid phone number.";
             }        
          }
+
+         if (!fields["dateOfBirth"]) {
+            isFormValid = false;
+            errors["dateOfBirth"] = "Please enter the date of birth.";
+        }
+
+        if (!fields["dateOfJoin"]) {
+            isFormValid = false;
+            errors["dateOfJoin"] = "Please enter the date of join.";
+        }
 
         this.setState({
             errors: errors
@@ -220,7 +242,8 @@ class EditTrainer extends React.Component {
                         <br/>
                         <DateTimePicker className="date-picker-extension" name="dateOfBirth" 
                             onChange={(e) => this.handleDateChange('dateOfBirth', e)}
-                            //value={this.state.fields.dateOfBirth} 
+                            value={this.state.fields.dateOfBirth} 
+                            required={true}
                         />
                     </div>
 
@@ -235,7 +258,7 @@ class EditTrainer extends React.Component {
                         <br/>
                         <DateTimePicker className="date-picker-extension" name="dateOfJoin" 
                             onChange={(e) => this.handleDateChange('dateOfJoin', e)}
-                            //value={this.state.fields.dateOfJoin} 
+                            value={this.state.fields.dateOfJoin} required={true}
                             />
                     </div>
 

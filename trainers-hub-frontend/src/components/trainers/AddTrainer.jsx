@@ -85,6 +85,13 @@ class AddTrainer extends React.Component {
             errors["lastName"] = "Please enter the last name.";
         }
 
+        if(typeof fields["lastName"] !== "undefined"){
+            if(!fields["lastName"].match(/^[a-zA-Z]+$/)){
+                isFormValid = false;
+               errors["lastName"] = "Only alphabets are allowed.";
+            }        
+         }
+
         if (!fields["email"]) {
             isFormValid = false;
             errors["email"] = "Please enter the email address.";
@@ -107,6 +114,16 @@ class AddTrainer extends React.Component {
                errors["phone"] = "Please enter a valid phone number.";
             }        
          }
+
+        if (!fields["dateOfBirth"]) {
+            isFormValid = false;
+            errors["dateOfBirth"] = "Please enter the date of birth.";
+        }
+
+        if (!fields["dateOfJoin"]) {
+            isFormValid = false;
+            errors["dateOfJoin"] = "Please enter the date of join.";
+        }
 
         this.setState({
             errors: errors
@@ -192,7 +209,8 @@ class AddTrainer extends React.Component {
                         <br/>
                         <DateTimePicker className="date-picker-extension" name="dateOfBirth" 
                             onChange={(e) => this.handleDateChange('dateOfBirth', e)}
-                            value={this.state.fields.dateOfBirth} />
+                            value={this.state.fields.dateOfBirth} required={true}/>
+                        <div className="text-danger">{this.state.errors.dateOfBirth}</div>
                     </div>
 
                     <div className="form-group">
@@ -206,7 +224,8 @@ class AddTrainer extends React.Component {
                         <br/>
                         <DateTimePicker className="date-picker-extension" name="dateOfJoin" 
                             onChange={(e) => this.handleDateChange('dateOfJoin', e)}
-                            value={this.state.fields.dateOfJoin} />
+                            value={this.state.fields.dateOfJoin} required={true}/>
+                        <div className="text-danger">{this.state.errors.dateOfJoin}</div>
                     </div>
 
                     <div className="form-group">
