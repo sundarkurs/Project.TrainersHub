@@ -21,8 +21,8 @@ class TrainerItem extends Component {
               <p className="card-text">{this.props.trainer.lastname}</p>
             </div>
             <div className="card-footer" >
-              <a href="#" className="btn btn-info">Edit</a>
               <a href="#" onClick={this.deleteTrainer.bind(this, this.props.trainer.id)} className="btn btn-danger">Delete</a>
+              <a href={ "/editTrainer?id=" + this.props.trainer.id } className="btn btn-primary">Edit</a>
             </div>
         </div>
     );

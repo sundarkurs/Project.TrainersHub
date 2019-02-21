@@ -79,7 +79,6 @@ class Workouts extends React.Component {
     }
 
     render(){
-        debugger;
 
         let workoutItems;
         if (this.state.workouts) {

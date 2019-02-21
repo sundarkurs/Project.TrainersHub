@@ -4,8 +4,9 @@ import DateTimePicker from 'react-datetime-picker';
 
 import MySelect from "../common/MySelect"
 import MyInput from "../common/MyInput"
+import { GetValue } from '../utilities/QueryString';
 
-class AddTrainer extends React.Component {
+class EditTrainer extends React.Component {
 
     constructor() {
         super();
@@ -42,12 +43,27 @@ class AddTrainer extends React.Component {
         });
     }
 
+    getTrainer(id){
+        fetch('http://api.trainershub.com/api/trainers/' + id)
+        .then(response => response.json())
+        .then(data => {
+                this.setState({ 
+                    fields: data 
+                })
+
+                this.setState({
+                    trainerId: data.id
+                });
+            }
+        );
+    }
+
     handleSubmit(event) {
         event.preventDefault();
 
         if (this.validateForm()) {
-            fetch('http://api.trainershub.com/api/trainers', {
-                method: 'POST',
+            fetch('http://api.trainershub.com/api/trainers/' + this.state.trainerId, {
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -115,7 +131,10 @@ class AddTrainer extends React.Component {
     }
 
     componentWillMount() {
-        
+        let trainerId = GetValue("id");
+        if(trainerId){
+            this.getTrainer(trainerId);
+        }
     }
 
     render(){
@@ -123,7 +142,7 @@ class AddTrainer extends React.Component {
         const { redirect } = this.state;
 
         if (redirect) {
-            return <Redirect to='/trainers'/>;
+            //return <Redirect to='/trainers'/>;
 
             // <Redirect to={
             //     {
@@ -132,13 +151,22 @@ class AddTrainer extends React.Component {
             //         state: { referrer: currentLocation }
             //     }
             // }/>
-
+            
+            let redirectStatus = {
+                statusCode: "SUCCESS",
+                statusMessage : "Trainer " + this.state.fields.firstName + " is updated successfully."
+            };
+            
+            this.props.history.push({
+                pathname: '/trainers',
+                state: redirectStatus
+              })
         }
 
         return (
             <div>
                 <div className="page-header">
-                    <h2>Add trainer</h2>
+                    <h2>Edit trainer</h2>
                 </div>
 
                 <form onSubmit={this.handleSubmit}>
@@ -192,7 +220,8 @@ class AddTrainer extends React.Component {
                         <br/>
                         <DateTimePicker className="date-picker-extension" name="dateOfBirth" 
                             onChange={(e) => this.handleDateChange('dateOfBirth', e)}
-                            value={this.state.fields.dateOfBirth} />
+                            //value={this.state.fields.dateOfBirth} 
+                        />
                     </div>
 
                     <div className="form-group">
@@ -206,7 +235,8 @@ class AddTrainer extends React.Component {
                         <br/>
                         <DateTimePicker className="date-picker-extension" name="dateOfJoin" 
                             onChange={(e) => this.handleDateChange('dateOfJoin', e)}
-                            value={this.state.fields.dateOfJoin} />
+                            //value={this.state.fields.dateOfJoin} 
+                            />
                     </div>
 
                     <div className="form-group">
@@ -223,7 +253,7 @@ class AddTrainer extends React.Component {
     }
 };
 
-export default AddTrainer;
+export default EditTrainer;
 
 // TODO
 // https://www.codementor.io/blizzerand/building-forms-using-react-everything-you-need-to-know-iz3eyoq4y
