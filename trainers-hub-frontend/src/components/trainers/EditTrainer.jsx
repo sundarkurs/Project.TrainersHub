@@ -134,18 +134,8 @@ class EditTrainer extends React.Component {
                 isFormValid = false;
                errors["phone"] = "Please enter a valid phone number.";
             }        
-         }
-
-         if (!fields["dateOfBirth"]) {
-            isFormValid = false;
-            errors["dateOfBirth"] = "Please enter the date of birth.";
         }
-
-        if (!fields["dateOfJoin"]) {
-            isFormValid = false;
-            errors["dateOfJoin"] = "Please enter the date of join.";
-        }
-
+        
         this.setState({
             errors: errors
         });
@@ -256,9 +246,10 @@ class EditTrainer extends React.Component {
                     <div className="form-group">
                         <label>Date of Join:</label>
                         <br/>
-                        <DateTimePicker className="date-picker-extension" name="dateOfJoin" 
+                        <DateTimePicker id="dtDateOfBirth" className="date-picker-extension" name="dateOfJoin" 
                             onChange={(e) => this.handleDateChange('dateOfJoin', e)}
-                            value={this.state.fields.dateOfJoin} required={true}
+                            value={this.state.fields.dateOfJoin} 
+                            required={true}
                             />
                     </div>
 
